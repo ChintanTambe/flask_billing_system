@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Bill</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Bill/Invoice Generator</h2>
+    <form id="billForm">
+        <div class="form-group">
+            <label for="itemName">Item:</label>
+            <input type="text" class="form-control" id="itemName" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" value="1" min="1" required>
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" id="price" value="0" min="0" required>
+        </div>
+        <button type="button" class="btn btn-success" id="addItem">Add Item</button>
+    </form>
+    
+    <h3 class="mt-4">Item List</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="itemList"></tbody>
+    </table>
+    
+    <h4>Total Amount: $<span id="totalAmount">0.00</span></h4>
+    
+    <button class="btn btn-primary" id="generateInvoice">Generate Invoice</button>
+</div>
+
+<script>
+    let total = 0;
+    let items = [];
+
+    $(document).ready(function() {
+        $('#addItem').click(function() {
+            const itemName = $('#itemName').val();
+            const quantity = parseInt($('#quantity').val());
+            const price = parseFloat($('#price').val());
+            const itemTotal = quantity * price;
+
+            if (itemName && quantity > 0 && price >= 0) {
+                const newRow = `
+                    <tr>
+                        <td>${itemName}</td>
+                        <td>${quantity}</td>
+                        <td>$${itemTotal.toFixed(2)}</td>
+                        <td><button class="btn btn-danger removeItem">Remove</button></td>
+                    </tr>
+                `;
+                $('#itemList').append(newRow);
+                total += itemTotal;
+                $('#totalAmount').text(total.toFixed(2));
+
+                items.push({ 'item': itemName, 'quantity': quantity, 'price': price });
+
+                // Clear input fields
+                $('#itemName').val('');
+                $('#quantity').val(1);
+                $('#price').val(0);
+            }
+        });
+
+        $(document).on('click', '.removeItem', function() {
+            const row = $(this).closest('tr');
+            const itemTotal = parseFloat(row.find('td:eq(2)').text().replace('$', ''));
+            total -= itemTotal;
+            $('#totalAmount').text(total.toFixed(2));
+            row.remove();
+        });
+
+        $('#generateInvoice').click(function () {
+            const billData = {
+                items: items,
+                totalAmount: total
+            };
+            $.ajax({
+                url: '/generate_and_store_invoice',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(billData),
+                success: function(data) {
+                    // Redirect to the invoice page
+                    window.location.href = `/invoice/${data.invoiceId}`;
+                },
+                error: function() {
+                    alert('invoice generated succesfuly');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Internal CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        .profile-header {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .profile-header h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .profile-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-card h4 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            margin-bottom: 15px;
+        }
+
+        .profile-info label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .profile-info span {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .edit-profile-btn {
+            background-color: #ff4757;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        .edit-profile-btn:hover {
+            background-color: #e84142;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Profile Header Section -->
+    <div class="profile-header">
+        <h2>Your Profile</h2>
+        <p>View and manage your account details</p>
+    </div>
+
+    <!-- Profile Card Section -->
+    <div class="profile-card">
+        <!-- Profile Information -->
+        <div class="profile-info">
+            <label>Username:</label>
+            <span>ramnik1</span>
+        </div>
+        <div class="profile-info">
+            <label>Email:</label>
+            <span>ramnik1@gmail.com</span>
+        </div>
+        <div class="profile-info">
+            <label>Full Name:</label>
+            <span>ramnik survase</span>
+        </div>
+        <div class="profile-info">
+            <label>Role:</label>
+            <span>owner</span>
+        </div>
+
+        <!-- Edit Profile Button -->
+        <a href="{{ url_for('settings') }}" class="edit-profile-btn">Edit Profile</a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>&copy; 2024 smart bill manager. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

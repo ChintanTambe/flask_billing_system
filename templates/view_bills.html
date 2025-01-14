@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Bills</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Stored Bills</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>bill id</th>
+                <th>item name</th>
+                <th>quantity</th>
+                <th>price</th>
+                <th>total amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in bills %}
+                <tr>
+                    <td>{{ bill[0] }}</td>
+                    <td>{{ bill[1] }}</td>
+                    <td>{{ bill[2] }}</td>
+                    <td>${{ bill[3] }}</td>
+                    <td>${{ bill[4] }}</td>
+                    <td>{{ bill[5] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
